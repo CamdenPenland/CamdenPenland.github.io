@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roadmap — Camden Penland</title>
+  <meta name="description" content="Camden Penland's three-phase roadmap for transforming HR with AI — CoPilot Prompt Library, Headcount Intelligence, and People Analytics." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080b12;
+      --bg-2:      #0d1117;
+      --bg-3:      #141b26;
+      --border:    rgba(255,255,255,0.07);
+      --cyan:      #00d4ff;
+      --cyan-dim:  rgba(0,212,255,0.12);
+      --cyan-glow: rgba(0,212,255,0.35);
+      --violet:    #7b5cf0;
+      --violet-dim:rgba(123,92,240,0.15);
+      --text:      #e2e8f0;
+      --muted:     #6b7a99;
+      --mono:      'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── Scrollbar ─────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
+
+    /* ─── Nav ───────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      height: 64px;
+      background: rgba(8,11,18,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--cyan);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--cyan);
+      transition: width 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-links a.active {
+      color: var(--cyan);
+    }
+    .nav-links a.active::after { width: 100%; }
+
+    /* ─── Page Hero ─────────────────────────────────────────── */
+    .page-hero {
+      padding: 10rem clamp(1.5rem, 6vw, 6rem) 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 80% at 20% 50%, black, transparent);
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      opacity: 0.25;
+    }
+    .blob-1 {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, var(--violet) 0%, transparent 70%);
+      top: -80px; right: -60px;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+    .blob-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, var(--cyan) 0%, transparent 70%);
+      bottom: -40px; left: 10%;
+      animation: drift 10s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.08); }
+    }
+
+    .page-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .page-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.1s forwards;
+    }
+    .page-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--cyan);
+    }
+
+    .page-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.25s forwards;
+    }
+
+    .page-title span {
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--violet) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .page-subtitle {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.4s forwards;
+    }
+
+    /* ─── Section Scaffolding ───────────────────────────────── */
+    section {
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 6rem);
+    }
+
+    .section-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* ─── Roadmap Cards ─────────────────────────────────────── */
+    #phases { background: var(--bg-2); }
+
+    .roadmap-track {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    /* connector line */
+    .roadmap-track::before {
+      content: '';
+      position: absolute;
+      top: 2.25rem;
+      left: calc(16.66% + 1rem);
+      right: calc(16.66% + 1rem);
+      height: 1px;
+      background: linear-gradient(90deg, var(--cyan), var(--violet));
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .phase-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+      cursor: default;
+    }
+
+    .phase-card:hover {
+      border-color: rgba(0,212,255,0.35);
+      box-shadow: 0 0 40px rgba(0,212,255,0.08), 0 12px 40px rgba(0,0,0,0.4);
+      transform: translateY(-6px);
+    }
+
+    .phase-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75rem; height: 2.75rem;
+      border-radius: 50%;
+      background: var(--cyan-dim);
+      border: 1px solid rgba(0,212,255,0.25);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .phase-card:nth-child(2) .phase-number {
+      background: var(--violet-dim);
+      border-color: rgba(123,92,240,0.3);
+      color: var(--violet);
+    }
+
+    .phase-card:nth-child(3) .phase-number {
+      background: rgba(0,212,255,0.08);
+      border-color: rgba(0,212,255,0.2);
+      color: #5dd4c8;
+    }
+
+    .phase-tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .phase-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .phase-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .phase-badge {
+      display: inline-block;
+      margin-top: 1.25rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 99px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .badge-active { background: rgba(0,212,255,0.12); color: var(--cyan); border: 1px solid rgba(0,212,255,0.2); }
+    .badge-next   { background: var(--violet-dim);     color: var(--violet); border: 1px solid rgba(123,92,240,0.25); }
+    .badge-future { background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border); }
+
+    /* ─── Buttons ───────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.1);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .btn:hover::after { opacity: 1; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan) 0%, #0099cc 100%);
+      color: #000;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+    .btn-primary:hover { box-shadow: 0 0 35px var(--cyan-glow); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* ─── CTA strip ─────────────────────────────────────────── */
+    #cta {
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .cta-inner h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-inner p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem clamp(1.5rem, 6vw, 6rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--cyan);
+      letter-spacing: 0.04em;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cyan); }
+
+    /* ─── Animations ────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+
+      .roadmap-track {
+        grid-template-columns: 1fr;
+      }
+      .roadmap-track::before { display: none; }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ──────────────────────────────────────────────── -->
+  <nav>
+    <a href="index.html" class="nav-logo">CP /</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="roadmap.html" class="active">Roadmap</a></li>
+      <li><a href="index.html#connect">Connect</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Page Hero ─────────────────────────────────────────── -->
+  <div class="page-hero">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="page-hero-inner">
+      <p class="page-eyebrow">Roadmap</p>
+      <h1 class="page-title">Transforming HR<br />in <span>Three Phases.</span></h1>
+      <p class="page-subtitle">
+        A phased approach to building AI-powered HR infrastructure — from eliminating
+        repetitive tasks to building predictive intelligence.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Phase Cards ───────────────────────────────────────── -->
+  <section id="phases">
+    <div class="section-inner">
+      <div class="roadmap-track">
+
+        <div class="phase-card reveal" style="transition-delay:0.1s">
+          <div class="phase-number">01</div>
+          <p class="phase-tag">Phase 1</p>
+          <h3 class="phase-title">HR Prompt Library</h3>
+          <p class="phase-desc">
+            A practical, ready-to-use library of AI prompts built specifically for HR teams.
+            Covers job descriptions, manager conversation scripts, PIPs and corrective actions,
+            and HR process templates. Every prompt is designed with built-in guardrails: no
+            personally identifiable information, compliance-safe language, bias-aware framing,
+            and clear human review checkpoints. The goal is giving HR professionals a toolkit
+            they can trust and use on day one, regardless of which AI tool they're working with.
+          </p>
+          <span class="phase-badge badge-active">Active</span>
+        </div>
+
+        <div class="phase-card reveal" style="transition-delay:0.2s">
+          <div class="phase-number">02</div>
+          <p class="phase-tag">Phase 2</p>
+          <h3 class="phase-title">Headcount Intelligence</h3>
+          <p class="phase-desc">
+            Turning raw headcount data into instant, decision-ready insights using AI.
+            Instead of spending hours building reports manually, HR teams can analyze spans
+            of control, layers of management, manager-to-IC ratios, headcount trends over
+            time, open headcount vs. budget, and contractor vs. FTE mix. The workflow is
+            simple: export your data, feed it to AI, ask your question in plain language,
+            and get charts, summaries, and recommendations you can drop straight into a
+            leadership presentation. No analyst required.
+          </p>
+          <span class="phase-badge badge-next">Up Next</span>
+        </div>
+
+        <div class="phase-card reveal" style="transition-delay:0.3s">
+          <div class="phase-number">03</div>
+          <p class="phase-tag">Phase 3</p>
+          <h3 class="phase-title">People Analytics & Predictive Insights</h3>
+          <p class="phase-desc">
+            Using performance reviews, goal data, comp history, and engagement surveys to
+            predict talent outcomes before they happen. Covers attrition risk scoring,
+            promotion readiness, flight risk detection, and talent pool mapping for succession
+            planning. The inputs are data HR already has. The output is actionable intelligence
+            that lets leadership get ahead of problems instead of reacting to them.
+          </p>
+          <span class="phase-badge badge-future">On the Horizon</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────── -->
+  <section id="cta">
+    <div class="cta-inner reveal">
+      <h2>Ready to get started?</h2>
+      <p>Let's talk about how AI can work for your HR team.</p>
+      <div class="cta-buttons">
+        <a href="index.html#connect" class="btn btn-primary">
+          Get in Touch
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <span class="footer-logo">Camden Penland, HRBP | AI Strategy</span>
+    <ul class="footer-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li>
+        <a href="https://www.linkedin.com/in/camden-penland/" target="_blank" rel="noopener noreferrer">
+          LinkedIn
+        </a>
+      </li>
+    </ul>
+    <span class="footer-copy">© 2026 Camden Penland</span>
+  </footer>
+
+  <!-- ── JS ────────────────────────────────────────────────── -->
+  <script>
+    document.querySelectorAll('.reveal').forEach((el) => {
+      new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) el.classList.add('visible'); },
+        { threshold: 0.12 }
+      ).observe(el);
+    });
+
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.borderBottomColor = window.scrollY > 40 ? 'rgba(0,212,255,0.12)' : '';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

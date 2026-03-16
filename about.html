@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Camden Penland</title>
+  <meta name="description" content="About Camden Penland — HR Business Partner bridging people strategy and AI to transform how HR teams operate." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #080b12;
+      --bg-2:      #0d1117;
+      --bg-3:      #141b26;
+      --border:    rgba(255,255,255,0.07);
+      --cyan:      #00d4ff;
+      --cyan-dim:  rgba(0,212,255,0.12);
+      --cyan-glow: rgba(0,212,255,0.35);
+      --violet:    #7b5cf0;
+      --violet-dim:rgba(123,92,240,0.15);
+      --text:      #e2e8f0;
+      --muted:     #6b7a99;
+      --mono:      'JetBrains Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── Scrollbar ─────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
+
+    /* ─── Nav ───────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      height: 64px;
+      background: rgba(8,11,18,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--cyan);
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--cyan);
+      transition: width 0.25s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-links a.active {
+      color: var(--cyan);
+    }
+    .nav-links a.active::after { width: 100%; }
+
+    /* ─── Page Hero ─────────────────────────────────────────── */
+    .page-hero {
+      padding: 10rem clamp(1.5rem, 6vw, 6rem) 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 80% at 20% 50%, black, transparent);
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      opacity: 0.25;
+    }
+    .blob-1 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, var(--cyan) 0%, transparent 70%);
+      top: -60px; right: -60px;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.08); }
+    }
+
+    .page-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .page-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--cyan);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.1s forwards;
+    }
+    .page-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px; height: 1px;
+      background: var(--cyan);
+    }
+
+    .page-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: #fff;
+      line-height: 1.05;
+      opacity: 0;
+      animation: fadeUp 0.6s 0.25s forwards;
+    }
+
+    .page-title span {
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--violet) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── Section Scaffolding ───────────────────────────────── */
+    section {
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 6rem);
+    }
+
+    .section-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--cyan);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 18px; height: 1px;
+      background: var(--cyan);
+    }
+
+    .section-heading {
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── About Content ─────────────────────────────────────── */
+    #about-content { background: var(--bg-2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--cyan);
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+      font-weight: 500;
+    }
+
+    /* ─── Buttons ───────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.1);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .btn:hover::after { opacity: 1; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan) 0%, #0099cc 100%);
+      color: #000;
+      box-shadow: 0 0 20px var(--cyan-glow);
+    }
+    .btn-primary:hover { box-shadow: 0 0 35px var(--cyan-glow); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* ─── CTA strip ─────────────────────────────────────────── */
+    #cta {
+      background: var(--bg);
+      text-align: center;
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 6rem);
+    }
+
+    .cta-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .cta-inner h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-inner p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 2rem clamp(1.5rem, 6vw, 6rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--cyan);
+      letter-spacing: 0.04em;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cyan); }
+
+    /* ─── Animations ────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── Responsive ────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .about-stats { grid-template-columns: 1fr; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ──────────────────────────────────────────────── -->
+  <nav>
+    <a href="index.html" class="nav-logo">CP /</a>
+    <ul class="nav-links">
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="index.html#roadmap">Roadmap</a></li>
+      <li><a href="index.html#connect">Connect</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Page Hero ─────────────────────────────────────────── -->
+  <div class="page-hero">
+    <div class="blob blob-1"></div>
+    <div class="page-hero-inner">
+      <p class="page-eyebrow">About</p>
+      <h1 class="page-title">Bridging HR<br />and <span>AI.</span></h1>
+    </div>
+  </div>
+
+  <!-- ── About Content ─────────────────────────────────────── -->
+  <section id="about-content">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>
+            I work with HR teams to figure out where AI can actually help, not to replace
+            what people do well, but to take the busywork off their plate. I'm focused on
+            things that teams can start using right away without turning everything upside down.
+          </p>
+          <p>
+            That means building prompt libraries for everyday HR tasks, designing smarter
+            headcount planning tools, and putting together people analytics that leadership
+            can actually use. I like working in the space where people strategy meets new
+            technology, and I think the human side should always drive the decisions.
+          </p>
+          <p>
+            At the end of the day, I want HR teams spending less time on admin and more
+            time on the work that moves the needle.
+          </p>
+        </div>
+
+        <div class="about-stats reveal" style="transition-delay:0.15s">
+          <div class="stat-card">
+            <div class="stat-value">HR</div>
+            <div class="stat-label">Business Partnership</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">AI</div>
+            <div class="stat-label">Strategy & Implementation</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">∞</div>
+            <div class="stat-label">Human-Centered Approach</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">↑</div>
+            <div class="stat-label">Team Efficiency at Scale</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────────── -->
+  <section id="cta">
+    <div class="cta-inner reveal">
+      <h2>Want to work together?</h2>
+      <p>Explore the roadmap or reach out directly.</p>
+      <div class="cta-buttons">
+        <a href="index.html#roadmap" class="btn btn-outline">View Roadmap</a>
+        <a href="index.html#connect" class="btn btn-primary">
+          Get in Touch
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <span class="footer-logo">Camden Penland</span>
+    <ul class="footer-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="index.html#roadmap">Roadmap</a></li>
+      <li>
+        <a href="https://www.linkedin.com/in/camden-penland/" target="_blank" rel="noopener noreferrer">
+          LinkedIn
+        </a>
+      </li>
+    </ul>
+    <span class="footer-copy">© 2026 Camden Penland</span>
+  </footer>
+
+  <!-- ── JS ────────────────────────────────────────────────── */
+  <script>
+    document.querySelectorAll('.reveal').forEach((el) => {
+      new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) el.classList.add('visible'); },
+        { threshold: 0.12 }
+      ).observe(el);
+    });
+
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.borderBottomColor = window.scrollY > 40 ? 'rgba(0,212,255,0.12)' : '';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
